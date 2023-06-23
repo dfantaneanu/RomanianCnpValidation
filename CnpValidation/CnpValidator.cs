@@ -1,16 +1,16 @@
-﻿namespace CnpValidator
+﻿namespace CnpValitation
 {
     public class CnpValidator
     {
-        private readonly List<int> algorithmKeys = new() { 2, 7, 9, 1, 4, 6, 3, 5, 8, 2, 7, 9 };
 
         /// <summary>
         /// Check to see if the cnp aka the romanian security code is valid.
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public bool IsCnpValid(string? cnpNumber)
+        public static bool IsCnpValid(string? cnpNumber)
         {
+            List<int> algorithmKeys = new() { 2, 7, 9, 1, 4, 6, 3, 5, 8, 2, 7, 9 };
             List<int> cnpsDigits = new();
             int controlNumber;
 
@@ -48,9 +48,9 @@
 
         }
 
-        private bool IsCountryAreaValid(List<int> cnpsDigits) => 10 * cnpsDigits[7] + cnpsDigits[8] <= 52;
+        private static bool IsCountryAreaValid(List<int> cnpsDigits) => 10 * cnpsDigits[7] + cnpsDigits[8] <= 52;
 
-        private bool IsSexValid(int sex) => Enumerable.Range(1, 9).Contains(sex);
+        private static bool IsSexValid(int sex) => Enumerable.Range(1, 9).Contains(sex);
 
         /// <summary>
         /// The according 6 digits from the cnp are checked
@@ -58,7 +58,7 @@
         /// <param name="cnpsDigits"></param>
         /// <param name="sex"></param>
         /// <returns></returns>
-        private bool IsCnpDateValid(List<int> cnpsDigits, int sex)
+        private static bool IsCnpDateValid(List<int> cnpsDigits, int sex)
         {
 
             var century = GetCentury();
@@ -82,7 +82,7 @@
         }
 
 
-        private int GetCnpAlgorithmSum(List<int> cnpsDigits, List<int> algorithmKeys)
+        private static int GetCnpAlgorithmSum(List<int> cnpsDigits, List<int> algorithmKeys)
         {
             int cnpAlgorithmSum = 0;
 
@@ -92,7 +92,7 @@
             return cnpAlgorithmSum;
         }
 
-        private Dictionary<int, int[]> GetCentury()
+        private static Dictionary<int, int[]> GetCentury()
         {
             Dictionary<int, int[]> century = new Dictionary<int, int[]>
             {
